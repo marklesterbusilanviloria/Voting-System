@@ -1,0 +1,398 @@
+/* =============================================================
+   SHARED NAVBAR + GLOBAL BASE STYLES
+   iVOTE CS — College of Science Online Voting System
+   ============================================================= */
+
+:root {
+    --deep-green:  #12341d;
+    --mid-green:   #33553e;
+    --soft-green:  #6d9078;
+    --pale-green:  #a4c1ad;
+    --tint-green:  #d5e8db;
+    --white-glass: rgba(255,255,255,0.3);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { font-family: 'Geist', sans-serif; }
+
+/* ---- Navbar ---- */
+.navbar {
+    position: fixed; top: 0; width: 100%; height: 80px;
+    background: linear-gradient(135deg, #12341d 0%, #a4c1ad 100%);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 4%; z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    color: white; text-decoration: none;
+}
+.logo-icon {
+    background: rgba(255,255,255,0.2); width: 45px; height: 45px;
+    border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; overflow: hidden;
+}
+.logo-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px; font-weight: 800; letter-spacing: 0.5px;
+}
+.nav-links {
+    display: flex; gap: 15px;
+    position: absolute; left: 50%; transform: translateX(-50%);
+}
+.nav-link {
+    color: rgba(255,255,255,0.9); text-decoration: none;
+    font-size: 18px; font-weight: 500;
+    padding: 10px 20px; border-radius: 12px;
+    transition: all 0.3s ease;
+}
+.nav-link:hover, .nav-link.active {
+    color: white; background-color: #33553e;
+}
+
+/* Guest login button */
+.btn-login-oval {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #fff; color: #12341d;
+    padding: 10px 28px; border-radius: 50px;
+    font-weight: 700; font-size: 16px;
+    border: none; cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+.btn-login-oval:hover { background: #f1f5f9; transform: translateY(-2px); }
+.btn-login-oval.active {
+    background-color: #33553e;
+    color: white;
+}
+
+/* User dropdown */
+.user-menu-container { position: relative; display: flex; align-items: center; }
+.user-greeting {
+    font-family: 'Montserrat', sans-serif; color: #fff;
+    font-weight: 600; font-size: 16px; cursor: pointer;
+    padding: 8px 16px; border-radius: 50px;
+    display: flex; align-items: center; gap: 8px;
+    transition: background 0.2s;
+}
+.user-greeting:hover { background: rgba(255,255,255,0.1); }
+.arrow-icon { font-size: 12px; }
+.user-dropdown {
+    position: absolute; top: calc(100% + 15px); right: 0;
+    background: #fff; width: 260px; border-radius: 16px;
+    padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    display: none; flex-direction: column; gap: 16px;
+    border: 1px solid #e2e8f0;
+    animation: slideDown 0.2s ease-out;
+}
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.user-dropdown.show { display: flex; }
+.dropdown-header h3 {
+    font-family: 'Montserrat', sans-serif; color: #12341d;
+    font-size: 18px; font-weight: 700; margin-bottom: 4px;
+}
+.dropdown-header p { color: #64748b; font-size: 14px; font-weight: 500; }
+.divider { height: 1px; background: #e2e8f0; width: 100%; }
+.update-link {
+    color: #33553e; font-size: 14px; font-weight: 600;
+    text-decoration: underline; align-self: flex-start; transition: color 0.2s;
+}
+.update-link:hover { color: #12341d; }
+.btn-logout-oval {
+    font-family: 'Montserrat', sans-serif;
+    background: #f1f5f9; color: #12341d;
+    padding: 12px 24px; border-radius: 50px;
+    font-weight: 700; font-size: 15px;
+    border: 1px solid #e2e8f0; cursor: pointer; width: 100%;
+    transition: all 0.3s ease;
+}
+.btn-logout-oval:hover {
+    background: #fee2e2; color: #dc2626; border-color: #fca5a5;
+}
+
+/* Auth modal (guest) */
+.modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(15,42,24,0.45); backdrop-filter: blur(8px);
+    display: none; justify-content: center; align-items: center; z-index: 2000;
+}
+.modal-overlay.open { display: flex; }
+.modal-card {
+    background: white; width: 400px; padding: 40px;
+    border-radius: 24px; text-align: center;
+    animation: popIn 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
+}
+@keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
+}
+.modal-card h2 {
+    font-family: 'Montserrat', sans-serif; color: #12341d;
+    margin-bottom: 8px; font-weight: 700;
+}
+.modal-card p  { color: #33553e; margin-bottom: 24px; }
+.modal-btns    { display: flex; flex-direction: column; gap: 12px; }
+.m-btn {
+    font-family: 'Montserrat', sans-serif;
+    padding: 14px; border-radius: 12px;
+    text-decoration: none; font-weight: 600; transition: 0.2s;
+}
+.m-login    { background: #33553e; color: white; }
+.m-register { background: #d5e8db; color: #33553e; }
+.m-btn:hover { filter: brightness(95%); }
+.close-link {
+    margin-top: 20px; display: block; font-size: 13px;
+    color: #33553e; cursor: pointer; font-weight: 500;
+}
+
+/* Admin sidebar */
+.sidebar {
+    position: fixed; top: 0; left: 0;
+    width: 280px; height: 100vh;
+    background: #fff; border-right: 1px solid #e2e8f0;
+    display: flex; flex-direction: column; padding: 30px 20px;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.03); z-index: 900;
+    overflow-y: auto;
+}
+.admin-profile {
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; margin-bottom: 40px; padding-bottom: 30px;
+    border-bottom: 1px solid #e2e8f0;
+}
+.profile-pic {
+    width: 100px; height: 100px; border-radius: 50%;
+    object-fit: cover; border: 3px solid #33553e;
+    margin-bottom: 12px; padding: 2px;
+    background: #d5e8db;
+}
+.admin-name {
+    font-family: 'Montserrat', sans-serif; color: #12341d;
+    font-size: 18px; font-weight: 800; margin-bottom: 4px;
+}
+.admin-id  { color: #64748b; font-size: 13px; font-weight: 500; }
+.sidebar-menu { display: flex; flex-direction: column; gap: 12px; }
+.sidebar-menu a {
+    text-decoration: none; color: #33553e; font-weight: 600;
+    font-size: 15px; padding: 14px 20px; border-radius: 12px;
+    transition: all 0.3s ease;
+}
+.sidebar-menu a:hover, .sidebar-menu a.active {
+    background: #d5e8db; color: #12341d; transform: translateX(5px);
+}
+.with-sidebar { margin-left: 280px; padding-top: 80px; }
+
+/* Shared flash message */
+.flash {
+    padding: 14px 20px; border-radius: 12px; margin: 20px;
+    font-weight: 600; font-size: 14px;
+}
+.flash.success { background: #d1fae5; color: #065f46; }
+.flash.error   { background: #fee2e2; color: #991b1b; }
+.flash.info    { background: #dbeafe; color: #1e40af; }
+
+/* Shared navbar JS — toggles dropdown */
+
+/* =============================================================
+   MOBILE RESPONSIVE — 768px and below
+   ============================================================= */
+
+/* ── Navbar hamburger button ─────────────────────────────── */
+.nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    padding: 6px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 10px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.2s;
+}
+.nav-hamburger:hover { background: rgba(255,255,255,0.2); }
+.nav-hamburger span {
+    display: block;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: transform 0.25s, opacity 0.25s;
+}
+/* Animate to X when open */
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Navbar mobile dropdown panel ───────────────────────── */
+.nav-mobile-panel {
+    display: none;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(160deg, #1a3d26 0%, #2d5a3d 70%, #3a6b4a 100%);
+    flex-direction: column;
+    padding: 16px 20px 24px;
+    gap: 8px;
+    z-index: 999;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    animation: navPanelDown 0.22s ease-out;
+}
+@keyframes navPanelDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.nav-mobile-panel.open { display: flex; }
+
+/* Nav links inside mobile panel */
+.nav-mobile-panel .nav-link {
+    font-size: 16px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    color: rgba(255,255,255,0.85);
+    width: 100%;
+}
+.nav-mobile-panel .nav-link:hover,
+.nav-mobile-panel .nav-link.active {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+}
+
+/* Divider between links and auth section in mobile panel */
+.nav-mobile-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.15);
+    margin: 8px 0;
+}
+
+/* Auth / user section inside mobile panel */
+.nav-mobile-auth {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 4px;
+}
+.nav-mobile-auth .btn-login-oval {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+}
+/* Inline user info in mobile panel */
+.nav-mobile-user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 4px 16px;
+}
+.nav-mobile-user-info strong {
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+}
+.nav-mobile-user-info span {
+    color: rgba(255,255,255,0.6);
+    font-size: 13px;
+}
+.nav-mobile-auth .update-link {
+    color: rgba(255,255,255,0.75);
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+.nav-mobile-auth .update-link:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+.nav-mobile-auth .btn-logout-oval {
+    background: rgba(220,38,38,0.15);
+    color: #fca5a5;
+    border-color: rgba(220,38,38,0.3);
+    font-size: 14px;
+    padding: 11px 20px;
+}
+.nav-mobile-auth .btn-logout-oval:hover {
+    background: rgba(220,38,38,0.28);
+    color: #fca5a5;
+}
+
+/* ── Sidebar mobile overlay ──────────────────────────────── */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 99;
+    backdrop-filter: blur(2px);
+}
+.sidebar-overlay.open { display: block; }
+
+/* ── Sidebar hamburger toggle (mobile only) ──────────────── */
+.sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 200;
+    width: 42px;
+    height: 42px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    padding: 7px;
+    background: #1a3d26;
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    transition: background 0.2s;
+}
+.sidebar-toggle:hover { background: #2d5a3d; }
+.sidebar-toggle span {
+    display: block;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: transform 0.25s, opacity 0.25s;
+}
+.sidebar-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.sidebar-toggle.open span:nth-child(2) { opacity: 0; }
+.sidebar-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Media query: ≤768px ─────────────────────────────────── */
+@media (max-width: 768px) {
+
+    /* --- Navbar --- */
+    .nav-links    { display: none; }   /* hide desktop centered links */
+    .nav-auth     { display: none; }   /* hide desktop auth button */
+    .user-menu-container { display: none; } /* hide desktop user dropdown */
+    .logo-text    { font-size: 14px; letter-spacing: 0; } /* shrink logo text */
+    .nav-hamburger { display: flex; }  /* show hamburger */
+
+    /* --- Sidebar --- */
+    .sidebar {
+        transform: translateX(-110%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 100;
+    }
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    .sidebar-toggle { display: flex; }
+
+    /* Page content: remove sidebar offset */
+    .with-sidebar {
+        margin-left: 0;
+        padding-top: 80px;
+    }
+}
